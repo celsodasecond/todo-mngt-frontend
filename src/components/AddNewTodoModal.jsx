@@ -1,12 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { saveTodo } from "../services/TodoService";
+import { useNavigate } from "react-router-dom";
+import { saveTodo, getTodo, updateTodo } from "../services/TodoService";
 
 // eslint-disable-next-line react/prop-types
-const AddNewTodoModal = ({ onNewTodoAdded }) => {
+const AddNewTodoModal = ({ onNewTodoAdded, todoToUpdateId, listTodos }) => {
+	const navigator = useNavigate();
+
 	const [title, setTitle] = useState("");
 	const [description, setDescription] = useState("");
 	const [completed, setCompleted] = useState(false);
+
+	useEffect(() => {
+		if (todoToUpdateId) {
+			getTodo(todoToUpdateId).then((response) => {
+				const { title, description, completed } = response.data;
+				setTitle(title);
+				setDescription(description);
+				setCompleted(completed);
+			});
+		}
+	}, [todoToUpdateId]);
 
 	function saveOrUpdateTodo(e) {
 		e.preventDefault();
@@ -14,20 +28,37 @@ const AddNewTodoModal = ({ onNewTodoAdded }) => {
 		const todo = { title, description, completed };
 		console.log(todo);
 
-		saveTodo(todo)
-			.then((response) => {
-				console.log(response);
-				onNewTodoAdded(response.data);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+		if (todoToUpdateId) {
+			updateTodo(todoToUpdateId, todo)
+				.then((response) => {
+					console.log(response);
+					listTodos();
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		} else {
+			saveTodo(todo)
+				.then((response) => {
+					console.log(response);
+					onNewTodoAdded(response.data);
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}
+
+	function goToTodos() {
+		navigator("/");
 	}
 
 	return (
 		<dialog id="my_modal_1" className="modal">
 			<form method="dialog" className="modal-box">
-				<h3 className="font-bold text-lg mb-4">Add New Todo</h3>
+				<h3 className="font-bold text-lg mb-4">
+					{todoToUpdateId ? "Update" : "Add New"} Todo
+				</h3>
 				<div className="form-control w-full max-w-xs">
 					<label className="label">
 						<span className="label-text">Title:</span>
@@ -60,7 +91,9 @@ const AddNewTodoModal = ({ onNewTodoAdded }) => {
 				</div>
 				<div className="modal-action">
 					{/* if there is a button in form, it will close the modal */}
-					<button className="btn btn-warning">Close Modal</button>
+					<button className="btn btn-error" onClick={goToTodos}>
+						Close Modal
+					</button>
 					<button className="btn" onClick={(e) => saveOrUpdateTodo(e)}>
 						Submit
 					</button>

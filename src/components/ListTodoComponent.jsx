@@ -4,6 +4,7 @@ import AddNewTodoModal from "./AddNewTodoModal";
 
 const ListTodoComponent = () => {
 	const [todos, setTodos] = useState([]);
+	const [selectedTodoId, setSelectedTodoId] = useState(null);
 
 	useEffect(() => {
 		listTodos();
@@ -20,8 +21,27 @@ const ListTodoComponent = () => {
 			});
 	}
 
-	function addNewTodo() {
+	function addToDo() {
+		setSelectedTodoId(null);
 		window.my_modal_1.showModal();
+	}
+
+	function updateTodo(id) {
+		console.log(id);
+		setSelectedTodoId(id);
+		if (id) {
+			const currentUrl = window.location.href;
+
+			const baseUrl = currentUrl.split("/").slice(0, -1).join("/");
+
+			const url = `${baseUrl}/${id}`;
+
+			window.history.pushState({ path: url }, "", url);
+
+			window.my_modal_1.showModal();
+
+			console.log(url);
+		}
 	}
 
 	function handleNewTodoAdded(newTodo) {
@@ -29,9 +49,9 @@ const ListTodoComponent = () => {
 	}
 
 	return (
-		<div className="flex justify-center -mt-4 mb-auto">
+		<div className="flex justify-center -mt-4 mb-auto max-h-screen">
 			<div className="overflow-x-auto w-4/5 mt-4">
-				<button className="btn btn-sm btn-primary" onClick={addNewTodo}>
+				<button className="btn btn-sm btn-primary" onClick={addToDo}>
 					Add
 				</button>
 				<table className="table">
@@ -70,7 +90,11 @@ const ListTodoComponent = () => {
 									<td>{todo.title}</td>
 									<td>{todo.description}</td>
 									<td>
-										<button className="btn btn-ghost btn-xs">Edit</button>
+										<button
+											className="btn btn-ghost btn-xs"
+											onClick={() => updateTodo(todo.id)}>
+											Edit
+										</button>
 									</td>
 								</tr>
 							);
@@ -78,7 +102,11 @@ const ListTodoComponent = () => {
 					</tbody>
 				</table>
 			</div>
-			<AddNewTodoModal onNewTodoAdded={handleNewTodoAdded} />
+			<AddNewTodoModal
+				onNewTodoAdded={handleNewTodoAdded}
+				todoToUpdateId={selectedTodoId}
+				listTodos={listTodos}
+			/>
 		</div>
 	);
 };
