@@ -1,4 +1,4 @@
-function Header() {
+const Header = () => {
 	return (
 		<div className="navbar bg-base-100">
 			<div className="navbar-start">
@@ -41,6 +41,6 @@ function Header() {
 			<div className="navbar-end"></div>
 		</div>
 	);
-}
+};
 
 export default Header;
