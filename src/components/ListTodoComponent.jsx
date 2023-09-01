@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getAllTodos } from "../services/TodoService";
+import AddNewTodoModal from "./AddNewTodoModal";
 
 const ListTodoComponent = () => {
 	const [todos, setTodos] = useState([]);
@@ -11,7 +12,7 @@ const ListTodoComponent = () => {
 	function listTodos() {
 		getAllTodos()
 			.then((response) => {
-                console.log("GET TODOs RESPONSE: ", response.data);
+				console.log("GET TODOs RESPONSE: ", response.data);
 				setTodos(response.data);
 			})
 			.catch((error) => {
@@ -19,9 +20,20 @@ const ListTodoComponent = () => {
 			});
 	}
 
+	function addNewTodo() {
+		window.my_modal_1.showModal();
+	}
+
+	function handleNewTodoAdded(newTodo) {
+		setTodos([...todos, newTodo]);
+	}
+
 	return (
-		<div className="flex justify-center mt-2 mb-auto">
-			<div className="overflow-x-auto w-4/5">
+		<div className="flex justify-center -mt-4 mb-auto">
+			<div className="overflow-x-auto w-4/5 mt-4">
+				<button className="btn btn-sm btn-primary" onClick={addNewTodo}>
+					Add
+				</button>
 				<table className="table">
 					{/* head */}
 					<thead>
@@ -66,6 +78,7 @@ const ListTodoComponent = () => {
 					</tbody>
 				</table>
 			</div>
+			<AddNewTodoModal onNewTodoAdded={handleNewTodoAdded} />
 		</div>
 	);
 };
