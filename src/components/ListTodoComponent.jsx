@@ -20,7 +20,7 @@ const ListTodoComponent = () => {
 	}
 
 	return (
-		<div className="flex justify-center mt-2">
+		<div className="flex justify-center mt-2 mb-auto">
 			<div className="overflow-x-auto w-4/5">
 				<table className="table">
 					{/* head */}
