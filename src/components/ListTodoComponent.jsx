@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { getAllTodos } from "../services/TodoService";
 
 const ListTodoComponent = () => {
-	const dummyData = [
-		{ id: 1, title: "Test App", description: "Test", completed: true },
-		{ id: 2, title: "Test App 2", description: "Test 2", completed: false },
-	];
+	const [todos, setTodos] = useState([]);
 
-	const [todos, setTodos] = useState(dummyData);
+	useEffect(() => {
+		listTodos();
+	}, []);
+
+	function listTodos() {
+		getAllTodos()
+			.then((response) => {
+                console.log("GET TODOs RESPONSE: ", response.data);
+				setTodos(response.data);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
 
 	return (
 		<div className="flex justify-center mt-2">
