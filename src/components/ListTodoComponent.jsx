@@ -95,6 +95,9 @@ const ListTodoComponent = () => {
 											onClick={() => updateTodo(todo.id)}>
 											Edit
 										</button>
+										<button className="btn btn-outline btn-error btn-xs ml-2">
+											Delete
+										</button>
 									</td>
 								</tr>
 							);
