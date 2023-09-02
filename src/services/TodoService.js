@@ -17,3 +17,7 @@ export const getTodo = (todoId) => {
 export const updateTodo = (todoId, todo) => {
 	return axios.put(REST_API_URL + "/" + todoId, todo)
 }
+
+export const deleteTodo = (todoId) => {
+	return axios.delete(REST_API_URL + "/" + todoId)
+}

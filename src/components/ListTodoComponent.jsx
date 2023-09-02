@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getAllTodos } from "../services/TodoService";
+import { deleteTodo, getAllTodos } from "../services/TodoService";
 import AddNewTodoModal from "./AddNewTodoModal";
 
 const ListTodoComponent = () => {
@@ -41,6 +41,19 @@ const ListTodoComponent = () => {
 			window.my_modal_1.showModal();
 
 			console.log(url);
+		}
+	}
+
+	function removeTodo(id) {
+		if (confirm("Are you sure?")) {
+			deleteTodo(id)
+				.then((response) => {
+					console.log(response);
+					listTodos();
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		}
 	}
 
@@ -95,7 +108,9 @@ const ListTodoComponent = () => {
 											onClick={() => updateTodo(todo.id)}>
 											Edit
 										</button>
-										<button className="btn btn-outline btn-error btn-xs ml-2">
+										<button
+											className="btn btn-outline btn-error btn-xs ml-2"
+											onClick={() => removeTodo(todo.id)}>
 											Delete
 										</button>
 									</td>
