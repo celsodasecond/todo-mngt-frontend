@@ -21,3 +21,7 @@ export const updateTodo = (todoId, todo) => {
 export const deleteTodo = (todoId) => {
 	return axios.delete(REST_API_URL + "/" + todoId)
 }
+
+export const triggerTodoComplete = (todoId) => {
+	return axios.patch(REST_API_URL + "/" + todoId)
+}

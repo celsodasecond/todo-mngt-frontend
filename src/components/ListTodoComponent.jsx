@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { deleteTodo, getAllTodos } from "../services/TodoService";
+import {
+	deleteTodo,
+	getAllTodos,
+	triggerTodoComplete,
+} from "../services/TodoService";
 import AddNewTodoModal from "./AddNewTodoModal";
 
 const ListTodoComponent = () => {
@@ -57,6 +61,17 @@ const ListTodoComponent = () => {
 		}
 	}
 
+	function todoCompletenessTrigger(id) {
+		triggerTodoComplete(id)
+			.then((response) => {
+				console.log(response);
+				listTodos();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}
+
 	function handleNewTodoAdded(newTodo) {
 		setTodos([...todos, newTodo]);
 	}
@@ -89,7 +104,8 @@ const ListTodoComponent = () => {
 											<input
 												type="checkbox"
 												className="checkbox"
-												checked={todo.completed ? "checked" : ""}
+												defaultChecked={todo.completed ? "checked" : ""}
+												onClick={() => todoCompletenessTrigger(todo.id)}
 											/>
 										</label>
 									</td>
