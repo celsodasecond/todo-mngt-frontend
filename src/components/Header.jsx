@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 const Header = () => {
 	return (
 		<div className="navbar bg-base-100">
@@ -22,7 +24,10 @@ const Header = () => {
 						tabIndex={0}
 						className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
 						<li>
-							<a>Todos</a>
+							<NavLink to="/todos">Todos</NavLink>
+						</li>
+						<li>
+							<NavLink to="/register">Register</NavLink>
 						</li>
 					</ul>
 				</div>

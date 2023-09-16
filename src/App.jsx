@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import ListTodoComponent from "./components/ListTodoComponent";
 import Footer from "./components/Footer";
+import RegisterComponent from "./components/RegisterComponent";
 
 function App() {
 	return (
@@ -15,6 +16,8 @@ function App() {
 					<Routes>
 						<Route path="/" element={<ListTodoComponent />}></Route>
 						<Route path="/todos" element={<ListTodoComponent />}></Route>
+
+						<Route path="/register" element={<RegisterComponent />}></Route>
 					</Routes>
 					<Footer />
 				</BrowserRouter>
