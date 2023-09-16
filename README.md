@@ -5,6 +5,7 @@
 The concept behind this app is to apply and put an interface to manipulate the data coming from the [Todo Management - Backend](https://github.com/celsodasecond/todo-mngt-backend). 
 
 **NOTE:** This project is not mobile responsive and only works best for web/desktop platforms 💻.
+**ANOTHER NOTE:** The file structure of this project is wrong especially with the usage of the components folder. Whole pages must be put into a separate 'pages' folder for better separation of concerns. Again, the sole purpose of this app is have an interface from the backend.
 
 ## Development
 

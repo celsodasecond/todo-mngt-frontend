@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { registerAPICall } from "../services/AuthService";
+import { useNavigate } from "react-router-dom";
 
 const RegisterComponent = () => {
+	const navigator = useNavigate();
+
 	const [name, setName] = useState("");
 	const [username, setUsername] = useState("");
 	const [email, setEmail] = useState("");
@@ -90,7 +93,13 @@ const RegisterComponent = () => {
 				</div>
 				<div className="flex justify-end mt-2 text-xs">
 					<h1>Already Registered? </h1>
-					<strong className="ml-2">Sign in</strong>
+					<strong
+						className="ml-2 cursor-pointer"
+						onClick={() => {
+							navigator("/login	");
+						}}>
+						Sign in
+					</strong>
 				</div>
 			</form>
 		</div>

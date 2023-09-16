@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import ListTodoComponent from "./components/ListTodoComponent";
 import Footer from "./components/Footer";
 import RegisterComponent from "./components/RegisterComponent";
+import LoginComponent from "./components/LoginComponent";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 						<Route path="/todos" element={<ListTodoComponent />}></Route>
 
 						<Route path="/register" element={<RegisterComponent />}></Route>
+						<Route path="/login" element={<LoginComponent />}></Route>
 					</Routes>
 					<Footer />
 				</BrowserRouter>
